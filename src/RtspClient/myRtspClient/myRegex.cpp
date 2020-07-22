@@ -61,7 +61,9 @@ int MyRegex::Regex(const char * str, const char * pattern, list<string> * groups
 	int ErrNo = regcomp(pReg, pattern, REG_EXTENDED);
 	if(ErrNo != 0) {
 		regerror(ErrNo, pReg, ErrBuf, sizeof(ErrBuf));
-		printf("Regex Error: %s\n", ErrBuf);
+		printf("Regex Error: %s\n", ErrBuf); 
+		regfree(pReg); free(pReg); free(pMatch);
+		pReg = NULL; pMatch = NULL;
 		return REGEX_FAILURE;
 	}
 	ErrNo = regexec(pReg, str, GroupNum, pMatch, 0);
