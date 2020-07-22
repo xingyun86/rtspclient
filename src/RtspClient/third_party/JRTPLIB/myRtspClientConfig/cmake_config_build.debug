@@ -1,0 +1,3 @@
+# Configure for cmake here
+set(JTHREAD_FOUND 0)
+add_definitions("-g")

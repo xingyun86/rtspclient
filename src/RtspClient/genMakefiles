@@ -1,0 +1,61 @@
+#!/bin/sh
+
+usage() {
+    echo "Usage: $0 <os-platform>"
+    exit 1
+}
+
+if [ $# -ne 1 ]
+then
+    usage $*
+fi
+
+if [ -f "Makefile" ]; then
+	make clean
+fi
+
+cd myRtspClient
+/bin/rm -f Makefile
+cat Makefile.head ../config.$1 Makefile.tail > Makefile
+chmod a-w Makefile
+
+cd ../example
+/bin/rm -f Makefile
+cat Makefile.head ../config.$1 Makefile.tail > Makefile
+chmod a-w Makefile
+
+cd ../third_party/Base64_live555
+/bin/rm -f Makefile
+cat Makefile.head ../../config.$1 Makefile.tail > Makefile
+chmod a-w Makefile
+
+cd ../../third_party/md5
+/bin/rm -f Makefile
+cat Makefile.head ../../config.$1 Makefile.tail > Makefile
+chmod a-w Makefile
+
+cd ../../third_party/JRTPLIB
+/bin/rm -f Makefile
+/bin/rm -f myRtspClientConfig/cmake_config_build.$1 
+mkdir -p build
+cd myRtspClientConfig
+perl config_$1\.pl ../../../config.$1 ../CMakeLists.txt_backup
+cd ..
+# cat myRtspClientConfig/cmake_config_build.$1 CMakeLists.txt_backup > CMakeLists.txt
+cat Makefile.head ../../config.$1 Makefile.tail > Makefile
+chmod a-w Makefile
+
+cd ../../third_party/JTHREAD
+/bin/rm -f Makefile
+/bin/rm -f myRtspClientConfig/cmake_config_build.$1 
+mkdir -p build
+cd myRtspClientConfig
+perl config_$1\.pl ../../../config.$1 ../CMakeLists.txt_backup
+cd ..
+cat Makefile.head ../../config.$1 Makefile.tail > Makefile
+chmod a-w Makefile
+
+cd ../../
+/bin/rm -f Makefile
+cat Makefile.head config.$1 Makefile.tail > Makefile
+chmod a-w Makefile
