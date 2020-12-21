@@ -51,6 +51,8 @@ int main(int argc, char* argv[])
 		cout << "Usage: " << argv[0] << " <URL>" << endl;
 		cout << "For example: " << endl;
 		cout << argv[0] << " rtsp://127.0.0.1/ansersion" << endl;
+		cout << argv[0] << " rtsp://username:password@127.0.0.1:554/stream" << endl;
+		system("pause");
 		return 1;
 	}
 
@@ -58,9 +60,8 @@ int main(int argc, char* argv[])
 	cout << "Then put video data into test_video_recv.h264; ";
 	cout << "And put audio data into test_audio_recv.mp3" << endl;
 
-	//string RtspUri("rtsp://pps:pps123456@192.168.1.64/channel/101");
+	//string RtspUri("rtsp://ppshuai:pps123456@192.168.1.64:554/Streaming/Channels/101?transportmode=unicast&profile=Profile_1");
 	string RtspUri(argv[1]);
-
 	
 	// string RtspUri("rtsp://192.168.81.145/ansersion");
 	RtspClient Client;
